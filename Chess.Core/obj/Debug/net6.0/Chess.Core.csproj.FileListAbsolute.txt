@@ -1,0 +1,12 @@
+C:\Users\Bulat\source\repos\ChessGame\Chess.Core\bin\Debug\net6.0\Chess.Core.deps.json
+C:\Users\Bulat\source\repos\ChessGame\Chess.Core\bin\Debug\net6.0\Chess.Core.dll
+C:\Users\Bulat\source\repos\ChessGame\Chess.Core\bin\Debug\net6.0\Chess.Core.pdb
+C:\Users\Bulat\source\repos\ChessGame\Chess.Core\obj\Debug\net6.0\Chess.Core.csproj.AssemblyReference.cache
+C:\Users\Bulat\source\repos\ChessGame\Chess.Core\obj\Debug\net6.0\Chess.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Bulat\source\repos\ChessGame\Chess.Core\obj\Debug\net6.0\Chess.Core.AssemblyInfoInputs.cache
+C:\Users\Bulat\source\repos\ChessGame\Chess.Core\obj\Debug\net6.0\Chess.Core.AssemblyInfo.cs
+C:\Users\Bulat\source\repos\ChessGame\Chess.Core\obj\Debug\net6.0\Chess.Core.csproj.CoreCompileInputs.cache
+C:\Users\Bulat\source\repos\ChessGame\Chess.Core\obj\Debug\net6.0\Chess.Core.dll
+C:\Users\Bulat\source\repos\ChessGame\Chess.Core\obj\Debug\net6.0\refint\Chess.Core.dll
+C:\Users\Bulat\source\repos\ChessGame\Chess.Core\obj\Debug\net6.0\Chess.Core.pdb
+C:\Users\Bulat\source\repos\ChessGame\Chess.Core\obj\Debug\net6.0\ref\Chess.Core.dll

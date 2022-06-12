@@ -24,5 +24,12 @@ namespace Chess.WPF
         {
             InitializeComponent();
         }
+
+        private void ChessPieceButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            MessageBox.Show(clickedButton.Content.ToString());
+        }
     }
+
 }

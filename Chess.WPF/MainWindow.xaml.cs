@@ -21,8 +21,6 @@ namespace Chess.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly Brush? _validMoveCellBrush = new BrushConverter().ConvertFrom("#80cd51") as Brush;
-        private readonly Brush? _invalidMoveCellBrush = new BrushConverter().ConvertFrom("#e34132") as Brush;
         private readonly WPFMoveController _moveController = new WPFMoveController();
 
         private string? _selectedPieceName;
@@ -43,17 +41,15 @@ namespace Chess.WPF
             if (_inPieceAddingMode)
             {
                 string? pos = cell.Tag.ToString();
-                _boardPieces.Add(PieceFactory<Button>.ReleasePiece(_selectedPieceName, pos, cell, _moveController));
+                Piece<Button> piece = PieceFactory<Button>.ReleasePiece(_selectedPieceName, pos, cell, _moveController);
+                _boardPieces.Add(piece);
+                cell.Content = piece.Name;
                 _inPieceAddingMode = false;
             }
             else if (_inPieceMovingMode)
             {
-                if (cell.Content?.ToString() == "Valid Cell")
-                {
-                    _inPieceMovingMode = false;
-                    cell.Content = _movingPieceCell?.Content.ToString();
-                    _movingPieceCell.Content = null;
-                }
+                _movingPiece?.Move(cell);
+                _inPieceMovingMode = false;
             }
             else
             {
@@ -68,28 +64,13 @@ namespace Chess.WPF
         {
             if (_inPieceMovingMode)
             {
-                Button cell = (Button)sender;
-                string? destinationPos = cell.Tag.ToString();
-                string? piecePos = _movingPiece?.GetPos();
-                if (_movingPiece.IsRightMove(piecePos[0], int.Parse(piecePos[1].ToString()),
-                    destinationPos[0], int.Parse(destinationPos[1].ToString())))
-                {
-                    if (cell.Content == null)
-                        cell.Content = "Valid Cell";
-                }
-                else
-                {
-                    if (cell.Content == null)
-                        cell.Content = "Invalid Cell";
-                }
+                _moveController.ValidateCell(_movingPiece, (Button)sender);
             }
         }
 
         private void Cell_MouseLeave(object sender, RoutedEventArgs e)
         {
-            Button cell = (Button)sender;
-            if (cell.Content?.ToString() == "Valid Cell" || cell.Content?.ToString() == "Invalid Cell")
-                cell.Content = null;
+            _moveController.ClearCell((Button)sender);
         }
 
         private void PieceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -8,6 +8,6 @@ namespace Chess.Core
 {
     public interface IMoveController<TCell>
     {
-        public void Move(Piece<TCell> piece, TCell destCell, char destCol, int destRow);
+        public void Move(Piece<TCell> piece, TCell destCell);
     }
 }

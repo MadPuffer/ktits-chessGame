@@ -10,8 +10,8 @@ namespace Chess.Core
 {
     public abstract class Piece<TCell>
     {
-        public int Row { get; protected set; }
-        public int Col { get; protected set; }
+        public int Row { get; set; }
+        public int Col { get; set; }
         public TCell Cell { get; set; }
         private IMoveController<TCell> _moveController;
         public string Name { get; protected set; }
@@ -61,30 +61,9 @@ namespace Chess.Core
         public abstract bool IsRightMove(char startCol, int startRow,
             char endCol, int endRow);
 
-
-        public void Move(string pos)
+        public void Move(TCell destCell)
         {
-            Move(pos[0], int.Parse(pos[1].ToString()));
-        }
-
-        public void Move(char endCol, int endRow)
-        {
-            int endColInt = ConvertColumnCoordToInt(endCol);
-
-            if (IsRightMove(Col, Row, endColInt, endRow))
-            {
-                Row = endRow;
-                Col = ConvertColumnCoordToInt(endCol);
-            }
-            else
-            {
-                Console.WriteLine("Incorrect move");
-            }
-        }
-
-        public void Move(TCell destCell, char destCol, int destRow)
-        {
-            _moveController.Move(this, destCell, destCol, destRow);
+            _moveController.Move(this, destCell);
         }
 
         private int ConvertColumnCoordToInt(char col)

@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "Chess.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Chess.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Chess.Core.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Chess.Core/1.0.0": {
+      "type": "project",
+      "path": "../Chess.Core/Chess.Core.csproj",
+      "msbuildProject": "../Chess.Core/Chess.Core.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "Chess.Core >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Bulat\\.nuget\\packages\\": {},
@@ -38,7 +57,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Bulat\\Source\\Repos\\MadPuffer\\ktits-chessGame\\Chess.Core\\Chess.Core.csproj": {
+              "projectPath": "C:\\Users\\Bulat\\Source\\Repos\\MadPuffer\\ktits-chessGame\\Chess.Core\\Chess.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

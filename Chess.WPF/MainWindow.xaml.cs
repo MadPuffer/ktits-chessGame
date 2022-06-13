@@ -21,15 +21,22 @@ namespace Chess.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly Brush? _defaultWhiteCellBrush = new BrushConverter().ConvertFrom("#ecc49f") as Brush;
+        private readonly Brush? _defaultBlackCellBrush = new BrushConverter().ConvertFrom("#be6140") as Brush;
+        private readonly Brush? _validMoveCellBrush = new BrushConverter().ConvertFrom("#80cd51") as Brush;
+        private readonly Brush? _invalidMoveCellBrush = new BrushConverter().ConvertFrom("#e34132") as Brush;
+
         private string? _selectedPieceName;
-        private List<Piece> _boardPieces = new();
+        private Piece? _movingPiece;
+        private readonly List<Piece> _boardPieces = new();
         private bool _inPieceAddingMode;
+        private bool _inPieceMovingMode;
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void ChessPieceButton_OnClick(object sender, RoutedEventArgs e)
+        private void Cell_OnClick(object sender, RoutedEventArgs e)
         {
             Button cell = (Button)sender;
             if (_inPieceAddingMode)
@@ -38,6 +45,35 @@ namespace Chess.WPF
                 _boardPieces.Add(PieceFactory.ReleasePiece(_selectedPieceName, pos));
                 cell.Content = _selectedPieceName;
                 _inPieceAddingMode = false;
+            }
+            else if (_inPieceMovingMode)
+            {
+
+            }
+            else
+            {
+                _movingPiece = _boardPieces.Find(piece => piece.GetPos() == cell.Tag.ToString());
+                if (_movingPiece != null)
+                    _inPieceMovingMode = true;
+            }
+        }
+
+        private void Cell_MouseOver(object sender, RoutedEventArgs e)
+        {
+            if (_inPieceMovingMode)
+            {
+                Button cell = (Button)sender;
+                string? destinationPos = cell.Tag.ToString();
+                string? piecePos = _movingPiece?.GetPos();
+                if (_movingPiece.IsRightMove(piecePos[0], int.Parse(piecePos[1].ToString()),
+                    destinationPos[0], int.Parse(destinationPos[1].ToString())))
+                {
+                    cell.Background = _validMoveCellBrush;
+                }
+                else
+                {
+                    cell.Background = _invalidMoveCellBrush;
+                }
             }
         }
 

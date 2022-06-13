@@ -38,7 +38,7 @@ namespace Chess.WPF
                 destCell.Content = "Invalid cell";
         }
 
-        public void ClearCell(Button cell)
+        public void ClearCellValidation(Button cell)
         {
             if (cell.Content?.ToString() == "Valid cell" || cell.Content?.ToString() == "Invalid cell")
                 cell.Content = null;

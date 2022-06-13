@@ -25,7 +25,6 @@ namespace Chess.WPF
 
         private string? _selectedPieceName;
         private Piece<Button>? _movingPiece;
-        private Button? _movingPieceCell;
         private readonly List<Piece<Button>> _boardPieces = new();
         private bool _inPieceAddingMode;
         private bool _inPieceMovingMode;
@@ -34,7 +33,7 @@ namespace Chess.WPF
             InitializeComponent();
         }
 
-        private void Cell_OnClick(object sender, RoutedEventArgs e)
+        private void Cell_OnLeftButtonClick(object sender, RoutedEventArgs e)
         {
             Button cell = (Button)sender;
 
@@ -54,10 +53,16 @@ namespace Chess.WPF
             else
             {
                 _movingPiece = _boardPieces.Find(piece => piece.GetPos() == cell.Tag.ToString());
-                _movingPieceCell = cell;
                 if (_movingPiece != null)
                     _inPieceMovingMode = true;
             }
+        }
+
+        private void Cell_OnRightButtonClick(object sender, RoutedEventArgs e)
+        {
+            Button cell = (Button)sender;
+            _boardPieces.Remove(_boardPieces.Find(piece => piece.GetPos() == cell.Tag.ToString()));
+            cell.Content = null;
         }
 
         private void Cell_MouseOver(object sender, RoutedEventArgs e)
@@ -70,7 +75,7 @@ namespace Chess.WPF
 
         private void Cell_MouseLeave(object sender, RoutedEventArgs e)
         {
-            _moveController.ClearCell((Button)sender);
+            _moveController.ClearCellValidation((Button)sender);
         }
 
         private void PieceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

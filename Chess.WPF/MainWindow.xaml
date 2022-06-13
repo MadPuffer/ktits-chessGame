@@ -14,7 +14,8 @@
             <Setter Property="Button.BorderBrush" Value="#be6140"/>
             <Setter Property="Button.HorizontalAlignment" Value="Stretch"/>
             <Setter Property="Button.VerticalAlignment" Value="Stretch"/>
-            <EventSetter Event="Button.Click" Handler="Cell_OnClick"/>
+            <EventSetter Event="Button.Click" Handler="Cell_OnLeftButtonClick"/>
+            <EventSetter Event="Button.MouseRightButtonDown" Handler="Cell_OnRightButtonClick"/>
             <EventSetter Event="Button.MouseEnter" Handler="Cell_MouseOver"/>
             <EventSetter Event="Button.MouseLeave" Handler="Cell_MouseLeave"/>
         </Style>

@@ -8,18 +8,21 @@ using System;
 
 namespace Chess.Core
 {
-    public class King : Piece
+    public class King<TCell> : Piece<TCell>
     {
-        public King(char col, int row) : base(col, row)
+        public King(char col, int row, TCell cell, IMoveController<TCell> controller) : base(col, row, cell, controller)
         {
+            Name = "King";
         }
 
-        public King(string pos) : base(pos)
+        public King(string pos, TCell cell, IMoveController<TCell> controller) : base(pos, cell, controller)
         {
+            Name = "King";
         }
 
-        public King(int col, int row) : base(col, row)
+        public King(int col, int row, TCell cell, IMoveController<TCell> controller) : base(col, row, cell, controller)
         {
+            Name = "King";
         }
 
         public override bool IsRightMove(int startCol, int startRow,

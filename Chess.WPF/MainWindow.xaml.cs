@@ -23,11 +23,12 @@ namespace Chess.WPF
     {
         private readonly Brush? _validMoveCellBrush = new BrushConverter().ConvertFrom("#80cd51") as Brush;
         private readonly Brush? _invalidMoveCellBrush = new BrushConverter().ConvertFrom("#e34132") as Brush;
+        private readonly WPFMoveController _moveController = new WPFMoveController();
 
         private string? _selectedPieceName;
-        private Piece? _movingPiece;
+        private Piece<Button>? _movingPiece;
         private Button? _movingPieceCell;
-        private readonly List<Piece> _boardPieces = new();
+        private readonly List<Piece<Button>> _boardPieces = new();
         private bool _inPieceAddingMode;
         private bool _inPieceMovingMode;
         public MainWindow()
@@ -38,11 +39,11 @@ namespace Chess.WPF
         private void Cell_OnClick(object sender, RoutedEventArgs e)
         {
             Button cell = (Button)sender;
+
             if (_inPieceAddingMode)
             {
                 string? pos = cell.Tag.ToString();
-                _boardPieces.Add(PieceFactory.ReleasePiece(_selectedPieceName, pos));
-                cell.Content = _selectedPieceName;
+                _boardPieces.Add(PieceFactory<Button>.ReleasePiece(_selectedPieceName, pos, cell, _moveController));
                 _inPieceAddingMode = false;
             }
             else if (_inPieceMovingMode)
@@ -84,7 +85,7 @@ namespace Chess.WPF
             }
         }
 
-        private void Cell_MouseLeft(object sender, RoutedEventArgs e)
+        private void Cell_MouseLeave(object sender, RoutedEventArgs e)
         {
             Button cell = (Button)sender;
             if (cell.Content?.ToString() == "Valid Cell" || cell.Content?.ToString() == "Invalid Cell")

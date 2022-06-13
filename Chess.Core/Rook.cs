@@ -6,18 +6,21 @@
 
 namespace Chess.Core
 {
-    public class Rook : Piece
+    public class Rook<TCell> : Piece<TCell>
     {
-        public Rook(char col, int row) : base(col, row)
+        public Rook(char col, int row, TCell cell, IMoveController<TCell> controller) : base(col, row, cell, controller)
         {
+            Name = "Rook";
         }
 
-        public Rook(string pos) : base(pos)
+        public Rook(string pos, TCell cell, IMoveController<TCell> controller) : base(pos, cell, controller)
         {
+            Name = "Rook";
         }
 
-        public Rook(int col, int row) : base(col, row)
+        public Rook(int col, int row, TCell cell, IMoveController<TCell> controller) : base(col, row, cell, controller)
         {
+            Name = "Rook";
         }
 
         public override bool IsRightMove(int startCol, int startRow,

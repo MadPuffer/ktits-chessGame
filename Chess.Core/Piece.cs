@@ -8,39 +8,48 @@ using System;
 
 namespace Chess.Core
 {
-    public abstract class Piece
+    public abstract class Piece<TCell>
     {
-        private int _row;
-        private int _col;
+        public int Row { get; protected set; }
+        public int Col { get; protected set; }
+        public TCell Cell { get; set; }
+        private IMoveController<TCell> _moveController;
+        public string Name { get; protected set; }
 
-        public Piece(char col, int row)
+        public Piece(char col, int row, TCell cell, IMoveController<TCell> controller)
         {
-            _row = row;
-            _col = ConvertColumnCoordToInt(char.ToUpper(col));
+            Row = row;
+            Col = ConvertColumnCoordToInt(char.ToUpper(col));
+            Cell = cell;
+            _moveController = controller;
 
-            if (!IsValidPos(this._col, row))
+            if (!IsValidPos(this.Col, row))
             {
                 throw new Exception("Invalid position");
             }
         }
 
-        public Piece(string pos)
+        public Piece(string pos, TCell cell, IMoveController<TCell> controller)
         {
-            _row = int.Parse(pos[1].ToString());
-            _col = ConvertColumnCoordToInt(char.ToUpper(pos[0]));
+            Row = int.Parse(pos[1].ToString());
+            Col = ConvertColumnCoordToInt(char.ToUpper(pos[0]));
+            Cell = cell;
+            _moveController = controller;
 
-            if (!IsValidPos(_col, _row))
+            if (!IsValidPos(Col, Row))
             {
                 throw new Exception("Invalid position");
             }
         }
 
-        public Piece(int col, int row)
+        public Piece(int col, int row, TCell cell, IMoveController<TCell> controller)
         {
-            _row = row;
-            _col = col;
+            Row = row;
+            Col = col;
+            Cell = cell;
+            _moveController = controller;
 
-            if (!IsValidPos(this._col, this._row))
+            if (!IsValidPos(this.Col, this.Row))
             {
                 throw new Exception("Invalid position");
             }
@@ -62,15 +71,20 @@ namespace Chess.Core
         {
             int endColInt = ConvertColumnCoordToInt(endCol);
 
-            if (IsRightMove(_col, _row, endColInt, endRow))
+            if (IsRightMove(Col, Row, endColInt, endRow))
             {
-                _row = endRow;
-                _col = ConvertColumnCoordToInt(endCol);
+                Row = endRow;
+                Col = ConvertColumnCoordToInt(endCol);
             }
             else
             {
                 Console.WriteLine("Incorrect move");
             }
+        }
+
+        public void Move(TCell destCell, char destCol, int destRow)
+        {
+            _moveController.Move(this, destCell, destCol, destRow);
         }
 
         private int ConvertColumnCoordToInt(char col)
@@ -90,7 +104,7 @@ namespace Chess.Core
 
         public string GetPos()
         {
-            return $"{ConvertColumnCoordToChar(_col)}{_row}";
+            return $"{ConvertColumnCoordToChar(Col)}{Row}";
         }
 
         public override string ToString()

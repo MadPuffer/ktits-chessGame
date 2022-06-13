@@ -6,18 +6,21 @@
 
 namespace Chess.Core
 {
-    public class Pawn : Piece
+    public class Pawn<TCell> : Piece<TCell>
     {
-        public Pawn(char col, int row) : base(col, row)
+        public Pawn(char col, int row, TCell cell, IMoveController<TCell> controller) : base(col, row, cell, controller)
         {
+            Name = "Pawn";
         }
 
-        public Pawn(string pos) : base(pos)
+        public Pawn(string pos, TCell cell, IMoveController<TCell> controller) : base(pos, cell, controller)
         {
+            Name = "Pawn";
         }
 
-        public Pawn(int col, int row) : base(col, row)
+        public Pawn(int col, int row, TCell cell, IMoveController<TCell> controller) : base(col, row, cell, controller)
         {
+            Name = "Pawn";
         }
 
         public override bool IsRightMove(int startCol, int startRow,

@@ -16,7 +16,7 @@
             <Setter Property="Button.VerticalAlignment" Value="Stretch"/>
             <EventSetter Event="Button.Click" Handler="Cell_OnClick"/>
             <EventSetter Event="Button.MouseEnter" Handler="Cell_MouseOver"/>
-            <EventSetter Event="Button.MouseLeave" Handler="Cell_MouseLeft"/>
+            <EventSetter Event="Button.MouseLeave" Handler="Cell_MouseLeave"/>
         </Style>
 
         <Style x:Key="BlackCell" BasedOn="{StaticResource Cell}">

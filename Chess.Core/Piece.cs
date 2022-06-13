@@ -88,8 +88,7 @@ namespace Chess.Core
 
         public override string ToString()
         {
-            return $"Type: {GetType().ToString().Split('.')[1]}\n " +
-                   $"Position: {GetPos()}";
+            return $"Type: {Name}\nPosition: {GetPos()}";
         }
     }
 }

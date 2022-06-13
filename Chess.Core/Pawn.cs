@@ -20,8 +20,19 @@ namespace Chess.Core
         {
         }
 
-        protected override bool IsRightMove(int startCol, int startRow,
+        public override bool IsRightMove(int startCol, int startRow,
             int endCol, int endRow)
+        {
+            if (startRow == 2)
+            {
+                return endRow - startRow <= 2 && startCol == endCol;
+            }
+
+            return endRow - startRow == 1 && startCol == endCol;
+        }
+
+        public override bool IsRightMove(char startCol, int startRow,
+            char endCol, int endRow)
         {
             if (startRow == 2)
             {

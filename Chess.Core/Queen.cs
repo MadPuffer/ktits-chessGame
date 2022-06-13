@@ -22,8 +22,15 @@ namespace Chess.Core
         {
         }
 
-        protected override bool IsRightMove(int startCol, int startRow,
+        public override bool IsRightMove(int startCol, int startRow,
             int endCol, int endRow)
+        {
+            return (Math.Abs(endCol - startCol) == Math.Abs(endRow - startRow))
+                   || (startCol == endCol || startRow == endRow);
+        }
+
+        public override bool IsRightMove(char startCol, int startRow,
+            char endCol, int endRow)
         {
             return (Math.Abs(endCol - startCol) == Math.Abs(endRow - startRow))
                    || (startCol == endCol || startRow == endRow);

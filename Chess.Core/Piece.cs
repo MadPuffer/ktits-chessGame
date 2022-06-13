@@ -15,8 +15,8 @@ namespace Chess.Core
 
         public Piece(char col, int row)
         {
-            this._row = row;
-            this._col = ConvertColumnCoordToInt(char.ToUpper(col));
+            _row = row;
+            _col = ConvertColumnCoordToInt(char.ToUpper(col));
 
             if (!IsValidPos(this._col, row))
             {
@@ -37,8 +37,8 @@ namespace Chess.Core
 
         public Piece(int col, int row)
         {
-            this._row = row;
-            this._col = col;
+            _row = row;
+            _col = col;
 
             if (!IsValidPos(this._col, this._row))
             {
@@ -46,13 +46,16 @@ namespace Chess.Core
             }
         }
 
-        protected abstract bool IsRightMove(int startCol, int startRow,
+        public abstract bool IsRightMove(int startCol, int startRow,
             int endCol, int endRow);
+
+        public abstract bool IsRightMove(char startCol, int startRow,
+            char endCol, int endRow);
 
 
         public void Move(string pos)
         {
-            this.Move(pos[0], int.Parse(pos[1].ToString()));
+            Move(pos[0], int.Parse(pos[1].ToString()));
         }
 
         public void Move(char endCol, int endRow)

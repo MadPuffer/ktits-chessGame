@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Chess.Core;
 
 namespace Chess.WPF
 {
@@ -20,6 +21,9 @@ namespace Chess.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string? _selectedPieceName;
+        private List<Piece> _boardPieces = new();
+        private bool _inPieceAddingMode;
         public MainWindow()
         {
             InitializeComponent();
@@ -27,8 +31,27 @@ namespace Chess.WPF
 
         private void ChessPieceButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Button clickedButton = (Button)sender;
-            MessageBox.Show(clickedButton.Content.ToString());
+            Button cell = (Button)sender;
+            if (_inPieceAddingMode)
+            {
+                string? pos = cell.Tag.ToString();
+                _boardPieces.Add(PieceFactory.ReleasePiece(_selectedPieceName, pos));
+                cell.Content = _selectedPieceName;
+                _inPieceAddingMode = false;
+            }
+        }
+
+        private void PieceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            Label label = (Label)comboBox.SelectedItem;
+
+            _selectedPieceName = label.Content.ToString();
+        }
+
+        private void btnAddPiece_Click(object sender, RoutedEventArgs e)
+        {
+            _inPieceAddingMode = true;
         }
     }
 
